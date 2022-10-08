@@ -732,7 +732,7 @@ Set_config_all(){
 }
 # 修改 配置信息
 Modify_config_password(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -k "${ssr_password}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -k "${ssr_password}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户密码修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -740,7 +740,7 @@ Modify_config_password(){
 	fi
 }
 Modify_config_method(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -m "${ssr_method}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -m "${ssr_method}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户加密方式修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -748,7 +748,7 @@ Modify_config_method(){
 	fi
 }
 Modify_config_protocol(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -O "${ssr_protocol}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -O "${ssr_protocol}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户协议修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -756,7 +756,7 @@ Modify_config_protocol(){
 	fi
 }
 Modify_config_obfs(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -o "${ssr_obfs}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -o "${ssr_obfs}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户混淆修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -764,7 +764,7 @@ Modify_config_obfs(){
 	fi
 }
 Modify_config_protocol_param(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -G "${ssr_protocol_param}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -G "${ssr_protocol_param}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户协议参数(设备数限制)修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -772,7 +772,7 @@ Modify_config_protocol_param(){
 	fi
 }
 Modify_config_speed_limit_per_con(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -s "${ssr_speed_limit_per_con}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -s "${ssr_speed_limit_per_con}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户单线程限速修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -780,7 +780,7 @@ Modify_config_speed_limit_per_con(){
 	fi
 }
 Modify_config_speed_limit_per_user(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -S "${ssr_speed_limit_per_user}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -S "${ssr_speed_limit_per_user}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户端口总限速修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -791,7 +791,7 @@ Modify_config_connect_verbose_info(){
 	sed -i 's/"connect_verbose_info": '"$(echo ${connect_verbose_info})"',/"connect_verbose_info": '"$(echo ${ssr_connect_verbose_info})"',/g' ${config_user_file}
 }
 Modify_config_transfer(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -t "${ssr_transfer}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -t "${ssr_transfer}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户总流量修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -799,7 +799,7 @@ Modify_config_transfer(){
 	fi
 }
 Modify_config_forbid(){
-	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -f "${ssr_forbid}"|grep -w "edit user ")
+	match_edit=$(python3 mujson_mgr.py -e -p "${ssr_port}" -f "${ssr_forbid}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
 		echo -e "${Error} 用户禁止访问端口修改失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
@@ -823,14 +823,14 @@ Modify_config_all(){
 	Modify_config_transfer
 	Modify_config_forbid
 }
-Check_python(){
-	python_ver=`python -h`
-	if [[ -z ${python_ver} ]]; then
-		echo -e "${Info} 没有安装Python，开始安装..."
+Check_python3(){
+	python3_ver=`python3 -h`
+	if [[ -z ${python3_ver} ]]; then
+		echo -e "${Info} 没有安装python3，开始安装..."
 		if [[ ${release} == "centos" ]]; then
-			yum install -y python
+			yum install -y python3
 		else
-			apt-get install -y python
+			apt-get install -y python3
 		fi
 	fi
 }
@@ -920,7 +920,7 @@ Installation_dependency(){
 		Debian_apt
 	fi
 	[[ ! -e "/usr/bin/unzip" ]] && echo -e "${Error} 依赖 unzip(解压压缩包) 安装失败，多半是软件包源的问题，请检查 !" && exit 1
-	Check_python
+	Check_python3
 	#echo "nameserver 8.8.8.8" > /etc/resolv.conf
 	#echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 	\cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
@@ -972,7 +972,7 @@ Uninstall_SSR(){
 	if [[ ${unyn} == [Yy] ]]; then
 		check_pid
 		[[ ! -z "${PID}" ]] && kill -9 ${PID}
-		user_info=$(python mujson_mgr.py -l)
+		user_info=$(python3 mujson_mgr.py -l)
 		user_total=$(echo "${user_info}"|wc -l)
 		if [[ ! -z ${user_info} ]]; then
 			for((integer = 1; integer <= ${user_total}; integer++))
@@ -1045,15 +1045,15 @@ Install_Libsodium(){
 # 显示 连接信息
 debian_View_user_connection_info(){
 	format_1=$1
-	user_info=$(python mujson_mgr.py -l)
+	user_info=$(python3 mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
 	[[ -z ${user_info} ]] && echo -e "${Error} 没有发现 用户，请检查 !" && exit 1
-	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp6' |awk '{print $5}' |awk -F ":" '{print $1}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
+	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python3' |grep 'tcp6' |awk '{print $5}' |awk -F ":" '{print $1}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
 		user_port=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $4}')
-		user_IP_1=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp6' |grep ":${user_port} " |awk '{print $5}' |awk -F ":" '{print $1}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`
+		user_IP_1=`netstat -anp |grep 'ESTABLISHED' |grep 'python3' |grep 'tcp6' |grep ":${user_port} " |awk '{print $5}' |awk -F ":" '{print $1}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`
 		if [[ -z ${user_IP_1} ]]; then
 			user_IP_total="0"
 		else
@@ -1064,7 +1064,7 @@ debian_View_user_connection_info(){
 				user_IP=`echo -e "\n${user_IP_1}"`
 			fi
 		fi
-		user_info_233=$(python mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
+		user_info_233=$(python3 mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
 		user_list_all=${user_list_all}"用户名: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix}\t 端口: ${Green_font_prefix}"${user_port}"${Font_color_suffix}\t 链接IP总数: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix}\t 当前链接IP: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
 		user_IP=""
 	done
@@ -1073,15 +1073,15 @@ debian_View_user_connection_info(){
 }
 centos_View_user_connection_info(){
 	format_1=$1
-	user_info=$(python mujson_mgr.py -l)
+	user_info=$(python3 mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
 	[[ -z ${user_info} ]] && echo -e "${Error} 没有发现 用户，请检查 !" && exit 1
-	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp' | grep '::ffff:' |awk '{print $5}' |awk -F ":" '{print $4}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
+	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python3' |grep 'tcp' | grep '::ffff:' |awk '{print $5}' |awk -F ":" '{print $4}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
 		user_port=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $4}')
-		user_IP_1=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp' |grep ":${user_port} "|grep '::ffff:' |awk '{print $5}' |awk -F ":" '{print $4}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`
+		user_IP_1=`netstat -anp |grep 'ESTABLISHED' |grep 'python3' |grep 'tcp' |grep ":${user_port} "|grep '::ffff:' |awk '{print $5}' |awk -F ":" '{print $4}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"`
 		if [[ -z ${user_IP_1} ]]; then
 			user_IP_total="0"
 		else
@@ -1092,7 +1092,7 @@ centos_View_user_connection_info(){
 				user_IP=`echo -e "\n${user_IP_1}"`
 			fi
 		fi
-		user_info_233=$(python mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
+		user_info_233=$(python3 mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
 		user_list_all=${user_list_all}"用户名: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix}\t 端口: ${Green_font_prefix}"${user_port}"${Font_color_suffix}\t 链接IP总数: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix}\t 当前链接IP: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
 		user_IP=""
 	done
@@ -1234,7 +1234,7 @@ Modify_Config(){
 	fi
 }
 List_port_user(){
-	user_info=$(python mujson_mgr.py -l)
+	user_info=$(python3 mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
 	[[ -z ${user_info} ]] && echo -e "${Error} 没有发现 用户，请检查 !" && exit 1
 	user_list_all=""
@@ -1259,11 +1259,11 @@ Add_port_user(){
 		while true
 		do
 			Set_config_all
-			match_port=$(python mujson_mgr.py -l|grep -w "port ${ssr_port}$")
+			match_port=$(python3 mujson_mgr.py -l|grep -w "port ${ssr_port}$")
 			[[ ! -z "${match_port}" ]] && echo -e "${Error} 该端口 [${ssr_port}] 已存在，请勿重复添加 !" && exit 1
-			match_username=$(python mujson_mgr.py -l|grep -w "user \[${ssr_user}]")
+			match_username=$(python3 mujson_mgr.py -l|grep -w "user \[${ssr_user}]")
 			[[ ! -z "${match_username}" ]] && echo -e "${Error} 该用户名 [${ssr_user}] 已存在，请勿重复添加 !" && exit 1
-			match_add=$(python mujson_mgr.py -a -u "${ssr_user}" -p "${ssr_port}" -k "${ssr_password}" -m "${ssr_method}" -O "${ssr_protocol}" -G "${ssr_protocol_param}" -o "${ssr_obfs}" -s "${ssr_speed_limit_per_con}" -S "${ssr_speed_limit_per_user}" -t "${ssr_transfer}" -f "${ssr_forbid}"|grep -w "add user info")
+			match_add=$(python3 mujson_mgr.py -a -u "${ssr_user}" -p "${ssr_port}" -k "${ssr_password}" -m "${ssr_method}" -O "${ssr_protocol}" -G "${ssr_protocol_param}" -o "${ssr_obfs}" -s "${ssr_speed_limit_per_con}" -S "${ssr_speed_limit_per_user}" -t "${ssr_transfer}" -f "${ssr_forbid}"|grep -w "add user info")
 			if [[ -z "${match_add}" ]]; then
 				echo -e "${Error} 用户添加失败 ${Green_font_prefix}[用户名: ${ssr_user} , 端口: ${ssr_port}]${Font_color_suffix} "
 				break
@@ -1295,7 +1295,7 @@ Del_port_user(){
 		del_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${del_user_port}"',')
 		if [[ ! -z ${del_user} ]]; then
 			port=${del_user_port}
-			match_del=$(python mujson_mgr.py -d -p "${del_user_port}"|grep -w "delete user ")
+			match_del=$(python3 mujson_mgr.py -d -p "${del_user_port}"|grep -w "delete user ")
 			if [[ -z "${match_del}" ]]; then
 				echo -e "${Error} 用户删除失败 ${Green_font_prefix}[端口: ${del_user_port}]${Font_color_suffix} "
 			else
@@ -1363,7 +1363,7 @@ Clear_transfer_one(){
 		[[ -z "${Clear_transfer_user_port}" ]] && echo -e "已取消..." && exit 1
 		Clear_transfer_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${Clear_transfer_user_port}"',')
 		if [[ ! -z ${Clear_transfer_user} ]]; then
-			match_clear=$(python mujson_mgr.py -c -p "${Clear_transfer_user_port}"|grep -w "clear user ")
+			match_clear=$(python3 mujson_mgr.py -c -p "${Clear_transfer_user_port}"|grep -w "clear user ")
 			if [[ -z "${match_clear}" ]]; then
 				echo -e "${Error} 用户已使用流量清零失败 ${Green_font_prefix}[端口: ${Clear_transfer_user_port}]${Font_color_suffix} "
 			else
@@ -1377,13 +1377,13 @@ Clear_transfer_one(){
 }
 Clear_transfer_all(){
 	cd "${ssr_folder}"
-	user_info=$(python mujson_mgr.py -l)
+	user_info=$(python3 mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
 	[[ -z ${user_info} ]] && echo -e "${Error} 没有发现 用户，请检查 !" && exit 1
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
 		user_port=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $4}')
-		match_clear=$(python mujson_mgr.py -c -p "${user_port}"|grep -w "clear user ")
+		match_clear=$(python3 mujson_mgr.py -c -p "${user_port}"|grep -w "clear user ")
 		if [[ -z "${match_clear}" ]]; then
 			echo -e "${Error} 用户已使用流量清零失败 ${Green_font_prefix}[端口: ${user_port}]${Font_color_suffix} "
 		else
