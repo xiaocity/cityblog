@@ -136,7 +136,7 @@ Get_IP(){
 }
 Get_User_info(){
 	Get_user_port=$1
-	user_info_get=$(python mujson_mgr.py -l -p "${Get_user_port}")
+	user_info_get=$(python3 mujson_mgr.py -l -p "${Get_user_port}")
 	match_info=$(echo "${user_info_get}"|grep -w "### user ")
 	if [[ -z "${match_info}" ]]; then
 		echo -e "${Error} 用户信息获取失败 ${Green_font_prefix}[端口: ${ssr_port}]${Font_color_suffix} " && exit 1
